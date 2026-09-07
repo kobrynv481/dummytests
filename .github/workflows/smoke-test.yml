@@ -2,15 +2,7 @@ name: Run smoke tests
 
 on:
   push:
-    inputs:
-      suite:
-        default: 'testng-smoke.xml'
-
   pull_request:
-    inputs:
-      suite:
-        default: 'testng-smoke.xml'
-
   workflow_dispatch:
     inputs:
       suite:
@@ -62,8 +54,17 @@ jobs:
           cat dummyproject.log
           exit 1
 
+      - name: Resolve suite
+        id: resolve
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "suite=${{ inputs.suite }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "suite=testng-smoke.xml" >> "$GITHUB_OUTPUT"
+          fi
+
       - name : Build and execute tests
-        run : mvn test -DsuiteXmlFile=src/test/resources/${{ inputs.suite }}
+        run : mvn test -DsuiteXmlFile=src/test/resources/${{ steps.resolve.outputs.suite }}
 
       - name: Upload test results
         if: always()
