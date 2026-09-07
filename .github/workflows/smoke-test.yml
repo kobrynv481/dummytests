@@ -1,6 +1,21 @@
 name: Run smoke tests
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    suite:
+      description: "What suite?"
+      required : false
+      default: 'testng-smoke.xml'
+      type: choice
+      options:
+        - testng-smoke.xml
+        - testng-integration.xml
+        - testng-e2e.xml
+        - testng.xml
+
+
 
 jobs:
   execute-tests:
@@ -39,7 +54,7 @@ jobs:
           exit 1
 
       - name : Build and execute tests
-        run : mvn test -DsuiteXmlFile=src/test/resources/testng-smoke.xml
+        run : mvn test -DsuiteXmlFile=src/test/resources/${{ inputs.suite }}
 
       - name: Upload test results
         if: always()
