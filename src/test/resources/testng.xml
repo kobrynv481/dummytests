@@ -1,0 +1,21 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!-- Runs everything, in order: smoke first (fail fast), then integration, then e2e.
+     Individual stages should instead point surefire at one of the other suite files:
+       mvn test -DsuiteXmlFile=src/test/resources/testng-smoke.xml -->
+<suite name="All Suites" verbose="1">
+    <test name="Smoke">
+        <classes>
+            <class name="dev.sdetprep.dummytests.smoke.TaskSmokeTests"/>
+        </classes>
+    </test>
+    <test name="Integration">
+        <classes>
+            <class name="dev.sdetprep.dummytests.integration.TaskIntegrationTests"/>
+        </classes>
+    </test>
+    <test name="E2E">
+        <classes>
+            <class name="dev.sdetprep.dummytests.e2e.TaskLifecycleE2ETest"/>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>dev.sdetprep</groupId>
+    <artifactId>dummytests</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>dummytests</name>
+    <description>Separate SDET test project for CI/CD practice. Depends on dummyproject
+        (built and unit-tested by the dev pipeline) and drives it over HTTP with
+        REST-assured + TestNG, organized into smoke / integration / e2e suites that run
+        as their own pipeline stage.</description>
+
+    <properties>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <testng.version>7.10.2</testng.version>
+        <rest-assured.version>5.5.0</rest-assured.version>
+        <dummyproject.version>1.0.0</dummyproject.version>
+
+        <!-- Default suite run by `mvn test`; override per stage, e.g.:
+             mvn test -DsuiteXmlFile=src/test/resources/testng-smoke.xml -->
+        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+
+        <!-- Base URL of the running dummyproject instance; override in CI, e.g.:
+             mvn test -Dapi.base.url=http://localhost:8080 -->
+        <api.base.url>http://localhost:8080</api.base.url>
+    </properties>
+
+    <dependencies>
+        <!-- the dev project under test — installed to the repo by the dummyproject build -->
+        <dependency>
+            <groupId>dev.sdetprep</groupId>
+            <artifactId>dummyproject</artifactId>
+            <version>${dummyproject.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <systemPropertyVariables>
+                        <api.base.url>${api.base.url}</api.base.url>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
