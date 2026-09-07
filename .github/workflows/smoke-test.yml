@@ -2,18 +2,27 @@ name: Run smoke tests
 
 on:
   push:
+    inputs:
+      suite:
+        default: 'testng-smoke.xml'
+
   pull_request:
+    inputs:
+      suite:
+        default: 'testng-smoke.xml'
+
   workflow_dispatch:
-    suite:
-      description: "What suite?"
-      required : false
-      default: 'testng-smoke.xml'
-      type: choice
-      options:
-        - testng-smoke.xml
-        - testng-integration.xml
-        - testng-e2e.xml
-        - testng.xml
+    inputs:
+      suite:
+        description: "What suite?"
+        required : false
+        default: 'testng-smoke.xml'
+        type: choice
+        options:
+          - testng-smoke.xml
+          - testng-integration.xml
+          - testng-e2e.xml
+          - testng.xml
 
 
 
@@ -64,6 +73,7 @@ jobs:
           path: '**/target/surefire-reports'
 
       - name: Publish test results
+        if: always()
         uses: dorny/test-reporter@v1
         with:
           name: TestNG results
