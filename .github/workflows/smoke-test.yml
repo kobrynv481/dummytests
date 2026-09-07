@@ -23,6 +23,21 @@ jobs:
         working-directory: dummyproject-src
         run: mvn install -DskipTests
 
+      - name: Start dummyproject
+        working-directory: dummyproject-src
+        run: |
+          nohup java -jar target/dummyproject-1.0.0-exec.jar > dummyproject.log 2>&1 &
+          for i in {1..30}; do
+            if curl -sf http://localhost:8080/actuator/health; then
+              echo "dummyproject is up"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "dummyproject did not start in time"
+          cat dummyproject.log
+          exit 1
+
       - name : Build and execute tests
         run : mvn test -DsuiteXmlFile=src/test/resources/testng-smoke.xml
 
