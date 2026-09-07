@@ -16,6 +16,9 @@ jobs:
           token: ${{ secrets.DUMMYPROJECT_PAT }}
           path: dummyproject-src
 
+      - name: Preparation of JDK
+        uses: ./.github/actions/setup-java
+
       - name: Build dependencies
         working-directory: dummyproject-src
         run: mvn install -DskipTests
