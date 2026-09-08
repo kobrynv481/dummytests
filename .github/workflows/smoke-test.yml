@@ -10,11 +10,15 @@ on:
         required : false
         default: 'testng-smoke.xml'
         type: choice
-        options:
-          - testng-smoke.xml
-          - testng-integration.xml
-          - testng-e2e.xml
-          - testng.xml
+        options: [testng-smoke.xml, testng-integration.xml, testng-e2e.xml, testng.xml]
+  workflow_call:
+    inputs:
+      suite:
+        type: string
+        default: 'testng-smoke.xml'
+    secrets:
+      dummyproject-pat:
+        required: true
 
 
 
@@ -57,10 +61,10 @@ jobs:
       - name: Resolve suite
         id: resolve
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "suite=${{ inputs.suite }}" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "${{ github.event_name }}" = "workflow_call" ]; then
+          echo "suite=${{ inputs.suite }}" >> "$GITHUB_OUTPUT"
           else
-            echo "suite=testng-smoke.xml" >> "$GITHUB_OUTPUT"
+          echo "suite=testng-smoke.xml" >> "$GITHUB_OUTPUT"
           fi
 
       - name : Build and execute tests
