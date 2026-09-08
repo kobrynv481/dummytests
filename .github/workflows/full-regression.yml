@@ -5,20 +5,17 @@ on: [workflow_dispatch]
 
 jobs:
   execute-smoke:
-    runs-on: ubuntu-latest
     uses: ./.github/workflows/smoke-test.yml
     with: { suite: testng-smoke.xml }
     secrets: inherit
 
   execute-integration:
-    runs-on: ubuntu-latest
     needs: execute-smoke
     uses: ./.github/workflows/smoke-test.yml
     with: { suite: testng-integration.xml }
     secrets: inherit
 
   execute-e2e:
-    runs-on: ubuntu-latest
     needs: execute-integration
     uses: ./.github/workflows/smoke-test.yml
     with: { suite: testng-e2e.xml }
