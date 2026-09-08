@@ -17,7 +17,7 @@ on:
         type: string
         default: 'testng-smoke.xml'
     secrets:
-      dummyproject-pat:
+      DUMMYPROJECT_PAT:
         required: true
 
 
