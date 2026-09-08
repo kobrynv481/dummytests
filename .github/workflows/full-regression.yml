@@ -25,8 +25,16 @@ jobs:
     needs: [execute-smoke, execute-integration, execute-e2e]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - uses: actions/download-artifact@v4
         with:
           pattern: allure-results-*
           path: merged-results
           merge-multiple: true
+
+      - name: Push results to Allure
+        uses: ./.github/actions/to-allure
+        with:
+          run-label: ${{ github.run_number }}-full-regression
+          allure-results-path: merged-results

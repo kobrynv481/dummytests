@@ -3,6 +3,10 @@ inputs:
   run-label:
     description: 'Unique label for this report folder (e.g. run number + suite name)'
     required: true
+  allure-results-path:
+    description: 'Directory containing allure-results to publish'
+    required: false
+    default: 'target/allure-results'
 runs:
   using: composite
   steps:
@@ -18,7 +22,7 @@ runs:
       if: always()
       uses: simple-elf/allure-report-action@master
       with:
-        allure_results: target/allure-results
+        allure_results: ${{ inputs.allure-results-path }}
         allure_history: allure-history
         keep_reports: 20
         github_run_num: ${{ inputs.run-label }}
