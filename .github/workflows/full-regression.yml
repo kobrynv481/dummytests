@@ -21,3 +21,12 @@ jobs:
     with: { suite: testng-e2e.xml }
     secrets: inherit
 
+  publish-report:
+    needs: [execute-smoke, execute-integration, execute-e2e]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: allure-results-*
+          path: merged-results
+          merge-multiple: true
