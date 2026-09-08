@@ -71,7 +71,7 @@ jobs:
           fi
 
       - name : Build and execute tests
-        run : mvn test -DsuiteXmlFile=src/test/resources/${{ steps.resolve.outputs.suite }}
+        run :  mvn test -DsuiteXmlFile=src/test/resources/${{ steps.resolve.outputs.suite }} -Dallure.results.directory=target/allure-results
 
       - name: Upload test results
         if: always()
