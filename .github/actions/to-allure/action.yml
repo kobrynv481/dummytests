@@ -40,7 +40,7 @@ runs:
             echo "<li><a href=\"${name}/index.html\">${name}</a></li>"
           done
           echo "</ul></body></html>"
-        } > index.html
+        } | sudo tee index.html > /dev/null
 
     - name: Clean up allure-history git metadata
       if: always()
