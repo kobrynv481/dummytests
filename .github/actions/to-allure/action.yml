@@ -27,6 +27,21 @@ runs:
         keep_reports: 20
         github_run_num: ${{ inputs.run-label }}
 
+    - name: Build reports index page
+      if: always()
+      shell: bash
+      run: |
+        cd allure-history
+        {
+          echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Allure Reports</title></head><body>"
+          echo "<h1>Test reports (newest first)</h1><ul>"
+          for d in $(ls -dt */ | grep -v last-history); do
+            name="${d%/}"
+            echo "<li><a href=\"${name}/index.html\">${name}</a></li>"
+          done
+          echo "</ul></body></html>"
+        } > index.html
+
     - name: Clean up allure-history git metadata
       if: always()
       shell: bash
