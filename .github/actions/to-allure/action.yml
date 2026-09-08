@@ -1,0 +1,16 @@
+name: Push results to Allure
+runs:
+  using: composite
+  steps:
+    - name: Get previous Allure history
+      if: always()
+      continue-on-error: true
+      uses: actions/checkout@v4
+      with:
+        ref: gh-pages
+        path: gh-pages
+
+    - name: Generate Allure report (with history)
+      if: always()
+      uses: simple-elf/allure-report-action@master
+      with:

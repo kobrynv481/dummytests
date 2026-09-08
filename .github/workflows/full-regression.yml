@@ -1,11 +1,14 @@
 name: Run Full Regression - all suites
+permissions:
+  contents: write
 on: [workflow_dispatch]
 
 jobs:
   execute-smoke:
-    uses: ./.github/workflows/smoke-test.yml
-    with: { suite: testng-smoke.xml }
-    secrets: inherit
+    steps:
+      uses: ./.github/workflows/smoke-test.yml
+      with: { suite: testng-smoke.xml }
+      secrets: inherit
 
   execute-integration:
     needs: execute-smoke
@@ -18,3 +21,4 @@ jobs:
     uses: ./.github/workflows/smoke-test.yml
     with: { suite: testng-e2e.xml }
     secrets: inherit
+
