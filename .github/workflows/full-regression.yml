@@ -6,10 +6,9 @@ on: [workflow_dispatch]
 jobs:
   execute-smoke:
     runs-on: ubuntu-latest
-    steps:
-      uses: ./.github/workflows/smoke-test.yml
-      with: { suite: testng-smoke.xml }
-      secrets: inherit
+    uses: ./.github/workflows/smoke-test.yml
+    with: { suite: testng-smoke.xml }
+    secrets: inherit
 
   execute-integration:
     runs-on: ubuntu-latest
