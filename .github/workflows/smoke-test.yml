@@ -3,6 +3,10 @@ name: Run smoke tests
 permissions:
   contents: write
 
+concurrency:
+  group: dummytests-allure-publish
+  cancel-in-progress: false
+
 on:
   push:
   pull_request:
