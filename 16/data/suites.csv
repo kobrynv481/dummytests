@@ -1,0 +1,5 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","27","listTasks_returns200WithArray","Smoke Suite","2026-09-08","passed","2026-09-08","dev.sdetprep.dummytests.smoke.TaskSmokeTests","Smoke","dev.sdetprep.dummytests.smoke.TaskSmokeTests","listTasks_returns200WithArray"
+"","1631","createTask_returns201WithGeneratedId","Smoke Suite","2026-09-08","passed","2026-09-08","dev.sdetprep.dummytests.smoke.TaskSmokeTests","Smoke","dev.sdetprep.dummytests.smoke.TaskSmokeTests","createTask_returns201WithGeneratedId"
+"","100","getMissingTask_returns404","Smoke Suite","2026-09-08","passed","2026-09-08","dev.sdetprep.dummytests.smoke.TaskSmokeTests","Smoke","dev.sdetprep.dummytests.smoke.TaskSmokeTests","getMissingTask_returns404"
+"","29","healthEndpointIsUp","Smoke Suite","2026-09-08","passed","2026-09-08","dev.sdetprep.dummytests.smoke.TaskSmokeTests","Smoke","dev.sdetprep.dummytests.smoke.TaskSmokeTests","healthEndpointIsUp"

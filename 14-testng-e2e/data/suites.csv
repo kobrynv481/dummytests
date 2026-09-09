@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","1870","fullTaskLifecycle_createUpdateListDelete","E2E Suite","2026-09-08","passed","2026-09-08","dev.sdetprep.dummytests.e2e.TaskLifecycleE2ETest","E2E","dev.sdetprep.dummytests.e2e.TaskLifecycleE2ETest","fullTaskLifecycle_createUpdateListDelete"
